@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Harness App</title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; }
+    nav a { margin-right: 12px; text-decoration: none; }
+    hr { margin: 12px 0; }
+    .error { color: #c00; margin: 8px 0; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, textarea { width: 100%; box-sizing: border-box; padding: 6px; margin-top: 4px; }
+    textarea { height: 80px; }
+    button, .btn { margin-top: 14px; padding: 6px 18px; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/">Home</a>
+  {% if session.user_id %}
+    <a href="{{ url_for('profile', user_id=session.user_id) }}">My Profile</a>
+    {% if session.is_admin %}<a href="{{ url_for('admin_users') }}">Admin</a>{% endif %}
+    <a href="{{ url_for('logout') }}">Logout ({{ session.username }})</a>
+  {% else %}
+    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('signup') }}">Sign Up</a>
+  {% endif %}
+</nav>
+<hr>
+{% block content %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Welcome to Harness App</h2>
+<p>A simple user profile application.</p>
+{% if session.user_id %}
+  <p><a href="{{ url_for('profile', user_id=session.user_id) }}">View your profile</a></p>
+{% else %}
+  <p><a href="{{ url_for('signup') }}">Create an account</a> or <a href="{{ url_for('login') }}">log in</a>.</p>
+{% endif %}
+{% endblock %}

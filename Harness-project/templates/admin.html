@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin — User List</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th><th>Username</th><th>Email</th><th>Admin</th><th>Created</th><th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in users %}
+    <tr>
+      <td>{{ u['id'] }}</td>
+      <td><a href="{{ url_for('profile', user_id=u['id']) }}">{{ u['username'] }}</a></td>
+      <td>{{ u['email'] }}</td>
+      <td>{{ 'Yes' if u['is_admin'] else 'No' }}</td>
+      <td>{{ u['created_at'] }}</td>
+      <td>
+        {% if u['id'] != session.user_id %}
+        <form method="post" action="{{ url_for('delete_user', user_id=u['id']) }}"
+              onsubmit="return confirm('Delete {{ u['username'] }}?')">
+          <button type="submit">Delete</button>
+        </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

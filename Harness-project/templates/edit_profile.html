@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Profile</h2>
+<form method="post">
+  <label>Email
+    <input type="text" name="email" value="{{ user['email'] }}">
+  </label>
+  <label>Bio
+    <textarea name="bio">{{ user['bio'] }}</textarea>
+  </label>
+  <input type="hidden" name="is_admin" value="{{ user['is_admin'] }}">
+  <button type="submit">Save Changes</button>
+</form>
+<p><a href="{{ url_for('profile', user_id=user['id']) }}">Cancel</a></p>
+{% endblock %}
